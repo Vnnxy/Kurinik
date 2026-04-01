@@ -20,7 +20,13 @@ public class DatabaseConnection {
      * creates it by executing the schema.sql that is provided.
      */
     public static void connectAndInitialze() {
-        boolean dbExists = new File(dbUrl).exists();
+        boolean dbExists = false;
+        try (Connection checkConn = DriverManager.getConnection("jdbc:sqlite:" + dbUrl)) {
+            var rs = checkConn.getMetaData().getTables(null, null, "paciente", null);
+            dbExists = rs.next(); // true if the paciente table exists
+        } catch (SQLException e) {
+            System.err.println("Could not check database state: " + e.getMessage());
+        }
 
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbUrl)) {
             Statement statement = connection.createStatement();
@@ -41,13 +47,6 @@ public class DatabaseConnection {
                     System.out.println("Database initialized successfully.");
                 }
 
-                // Schema script ecxecution
-                try {
-                    statement.executeUpdate(schemaScript);
-                    System.out.println("Database initialized successfully.");
-                } catch (SQLException e) {
-                    System.err.println("Error executing schema script: " + e.getMessage());
-                }
             }
         } catch (SQLException e) {
             System.err.println("Database connection error: " + e.getMessage());

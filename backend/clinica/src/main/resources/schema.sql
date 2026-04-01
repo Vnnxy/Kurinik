@@ -1,5 +1,5 @@
 -- Table for paciente
-CREATE table paciente(
+CREATE table if not exists paciente(
     idPaciente INTEGER primary key autoincrement,
     nombre TEXT not null,
     apellido TEXT not null,
@@ -13,7 +13,7 @@ CREATE table paciente(
 
 
 -- Table for historialMedico
-CREATE table historialMedico(
+CREATE table if not exists historialMedico(
     idHistorial INTEGER PRIMARY KEY,
     idPaciente INTEGER not NULL unique,
     grupoSanguineo TEXT ,
@@ -29,14 +29,14 @@ CREATE table historialMedico(
 );
 
 -- Table for farmaco
-CREATE table farmaco(
+CREATE table if not exists farmaco(
     idFarmaco INTEGER primary key autoincrement,
     nombre TEXT not null,
     instruccionesPorDefecto TEXT,
     controlado INTEGER
 );
 
-CREATE TABLE farmaco_dosis (
+CREATE TABLE if not exists farmaco_dosis (
     idDosis INTEGER PRIMARY KEY AUTOINCREMENT,
     idFarmaco INTEGER NOT NULL,
     dosis TEXT NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE farmaco_dosis (
 );
 
 -- Table for cita
-CREATE table cita(
+CREATE table if not exists cita(
     idCita INTEGER primary key autoincrement,
     idPaciente INTEGER not null,
     fecha TEXT not null,
@@ -55,7 +55,7 @@ CREATE table cita(
 );
 
 -- Table for notaEvaluacion
-CREATE table notaEvaluacion(
+CREATE table if not exists notaEvaluacion(
     idNota INTEGER primary key,
     idPaciente INTEGER not null,
     fechaHora TEXT not null,
@@ -70,7 +70,7 @@ CREATE table notaEvaluacion(
 );
 
 -- Table for telefonoPaciente
-CREATE table telefonoPaciente(
+CREATE table if not exists telefonoPaciente(
     telefono TEXT not null,
     idPaciente INTEGER not null,
     PRIMARY KEY(telefono, idPaciente),
@@ -80,7 +80,7 @@ CREATE table telefonoPaciente(
 );
 
 -- Table for correoPaciente
-CREATE table correoPaciente(
+CREATE table if not exists correoPaciente(
     correo TEXT not null,
     idPaciente INTEGER not null,
     PRIMARY KEY(correo, idPaciente),
@@ -90,7 +90,7 @@ CREATE table correoPaciente(
 );
 
 -- Table for receta
-CREATE table receta(
+CREATE table if not exists receta(
     idReceta INTEGER primary key, 
     idNota INTEGER not null,
     idPaciente INTEGER not null,
@@ -104,7 +104,7 @@ CREATE table receta(
 );
 
 -- Table for contener
-CREATE table contener(
+CREATE table if not exists contener(
     idFarmaco INTEGER not null,
     idNota INTEGER not null,
     idPaciente INTEGER not null,
