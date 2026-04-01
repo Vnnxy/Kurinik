@@ -1,0 +1,83 @@
+{
+  "name": "your-electron-app-name",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "electron-start": "electron .",
+    "react-start": "cd react-frontend && npm start",  
+    "react-build": "cd react-frontend && npm run build", 
+    "dev": "concurrently \"npm run react-start\" \"npm run electron-start\"",
+    "postinstall": "electron-builder install-app-deps",
+    "build": "npm run react-build && electron-builder",
+    "dist": "npm run build",
+    "dist-win": "npm run react-build && electron-builder --win --x64"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^29.4.6",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.Vnnxy.servicioClinica",
+    "productName": "Servicio Clinica",
+    "copyright": "Copyright © 2025 Vnnxy",
+    "directories": {
+      "output": "dist",
+      "buildResources": "resources"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "package.json",
+      {
+        "from": "react-frontend/build", 
+        "to": "react-frontend/build",
+        "filter": ["**/*"]
+      }
+    ],
+    "extraResources": [
+      {
+        "from": "../backend/clinica/target/clinica-0.0.1-SNAPSHOT.jar",
+        "to": "backend/clinica/target/clinica-0.0.1-SNAPSHOT.jar"
+      },
+      {
+        "from": "../db",
+        "to": "db"
+      },
+      {
+        "from": "../jre/temurin-jre", 
+        "to": "jre", 
+        "filter": ["**/*"]
+      }
+    ],
+    
+    "win": {
+      "target": ["nsis"],
+      "icon": "resources/icon.ico",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "mac": {
+      "category": "public.app-category.medical-apps",
+      "target": ["dmg", "zip"],
+      "icon": "resources/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "resources/icon.png",
+      "category": "MedicalApplication"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "resources/icon.ico",
+      "uninstallerIcon": "resources/icon.ico",
+      "uninstallDisplayName": "Servicio Clinica Uninstaller"
+    }
+  }
+}

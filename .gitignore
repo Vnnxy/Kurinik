@@ -1,0 +1,59 @@
+# ============================================================
+#  ServicioClinica — root .gitignore
+# ============================================================
+
+# ----- macOS ------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ----- Database (NEVER commit patient data) -----------------
+db/*.db
+db/*.sqlite
+db/*.sqlite3
+*.db
+*.sqlite
+
+# ----- JRE bundle (binary, not source) ----------------------
+jre/
+
+# ----- IntelliJ IDEA ----------------------------------------
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ----- VS Code ----------------------------------------------
+.vscode/
+
+# ----- Maven (backend) --------------------------------------
+backend/clinica/target/
+backend/clinica/.mvn/wrapper/maven-wrapper.jar
+
+# ----- Node / Electron (frontend) ---------------------------
+frontend/node_modules/
+frontend/react-frontend/node_modules/
+
+# ----- React build output -----------------------------------
+frontend/react-frontend/build/
+
+# ----- Electron dist (compiled installers) ------------------
+frontend/dist/
+
+# ----- Logs -------------------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ----- Environment / secrets --------------------------------
+.env
+.env.local
+.env.*.local
+application-local.properties
+application-secret.properties
+
+# ----- OS misc ----------------------------------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
